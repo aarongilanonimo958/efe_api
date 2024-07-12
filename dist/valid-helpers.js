@@ -62,6 +62,6 @@ exports.SchemaIn = joi_1.default.object({
         .max(18)
 });
 const generateSalt = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield bcrypt_1.default.genSaltSync(5);
+    return yield bcrypt_1.default.genSaltSync(1);
 });
 exports.generateSalt = generateSalt;
