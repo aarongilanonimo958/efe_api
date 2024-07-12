@@ -31,7 +31,11 @@ const sayhiController = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.sayhiController = sayhiController;
 const get_all = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield efectivo_model_1.SchemaEfectivo.findAll();
+        const data = yield efectivo_model_1.SchemaEfectivo.findAll({
+            order: [
+                ['fecha', 'ASC'],
+            ]
+        });
         return res.status(200).json(data);
     }
     catch (error) {
