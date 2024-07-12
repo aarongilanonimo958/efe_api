@@ -41,9 +41,10 @@ const get_all = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.get_all = get_all;
 const get_dateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const { date } = req.body;
         const data = yield efectivo_model_1.SchemaEfectivo.findAll({
             where: {
-                fecha: '05-04-2024'
+                fecha: date
             }
         });
         return res.status(200).json(data);
@@ -55,9 +56,10 @@ const get_dateController = (req, res) => __awaiter(void 0, void 0, void 0, funct
 exports.get_dateController = get_dateController;
 const get_cedeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const { date, cod } = req.body;
         const data = yield efectivo_model_1.SchemaEfectivo.findAll({
             where: {
-                fecha: '05-04-2024',
+                fecha: date,
                 codcede: "0101",
             }
         });
