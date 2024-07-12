@@ -52,34 +52,7 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: true }));
         this.app.use((0, morgan_1.default)('combined'));
         this.app.use((0, helmet_1.default)());
-        this.app.use((0, cors_1.default)({
-            origin(requestOrigin, callback) {
-                if (requestOrigin == 'https://efe-api.onrender.com')
-                    return callback(null, true);
-                return callback(Error('Origin'), false);
-            },
-            credentials: false,
-            methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
-            optionsSuccessStatus: 200,
-            allowedHeaders: [
-                'Accept',
-                'Origin',
-                'Authorization',
-                'X-Request-With',
-                'X-Custom-Headers',
-                'Access-Control-Allow-Headers',
-                'Access-Control-Allow-Origin'
-            ],
-            exposedHeaders: [
-                'Accept',
-                'Origin',
-                'Authorization',
-                'X-Request-With',
-                'X-Custom-Headers',
-                'Access-Control-Allow-Headers',
-                'Access-Control-Allow-Origin'
-            ]
-        }));
+        this.app.use((0, cors_1.default)());
     }
     serverrun() {
         let server = this.http.createServer({
