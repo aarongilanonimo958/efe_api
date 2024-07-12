@@ -53,7 +53,11 @@ class Server {
         this.app.use((0, morgan_1.default)('combined'));
         this.app.use((0, helmet_1.default)());
         this.app.use((0, cors_1.default)({
-            origin: true,
+            origin(requestOrigin, callback) {
+                if (requestOrigin == 'https://efe-api.onrender.com')
+                    return callback(null, true);
+                return callback(Error('Origin'), false);
+            },
             credentials: true,
             methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
             optionsSuccessStatus: 200,
