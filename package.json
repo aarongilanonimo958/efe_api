@@ -1,0 +1,32 @@
+{
+  "name": "efec_api",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "dev": "node --watch ./dist/index.js",
+    "tscc": "tsc --watch"
+  },
+  "main": "index.js",
+  "author": "AARON ISRAEL GIL <htlgil41@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.10.2",
+    "sequelize": "^6.37.3",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/crypto-js": "^4.2.2",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9"
+  }
+}
