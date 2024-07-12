@@ -58,7 +58,7 @@ class Server {
                     return callback(null, true);
                 return callback(Error('Origin'), false);
             },
-            credentials: true,
+            credentials: false,
             methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
             optionsSuccessStatus: 200,
             allowedHeaders: [
