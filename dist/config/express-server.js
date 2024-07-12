@@ -24,7 +24,7 @@ const user_model_1 = require("../dbs-models/user-model");
 class Server {
     constructor() {
         var _a;
-        this.port = (_a = process.env.PORT_SERVER) !== null && _a !== void 0 ? _a : '4200';
+        this.port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 4200;
         this.app = (0, express_1.default)();
         this.http = http_1.default;
         this.settings();
