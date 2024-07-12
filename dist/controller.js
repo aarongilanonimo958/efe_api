@@ -46,7 +46,10 @@ const get_dateController = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const data = yield efectivo_model_1.SchemaEfectivo.findAll({
             where: {
                 fecha: date
-            }
+            },
+            order: [
+                ['fecha', 'ASC'],
+            ]
         });
         return res.status(200).json(data);
     }
