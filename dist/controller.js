@@ -42,6 +42,7 @@ exports.get_all = get_all;
 const get_dateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { date } = req.body;
+        console.log(date);
         const data = yield efectivo_model_1.SchemaEfectivo.findAll({
             where: {
                 fecha: date
