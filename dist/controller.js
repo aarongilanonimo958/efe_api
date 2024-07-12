@@ -33,7 +33,7 @@ const get_all = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield efectivo_model_1.SchemaEfectivo.findAll({
             order: [
-                ['fecha', 'ASC'],
+                ['fecha', 'DESC'],
             ]
         });
         return res.status(200).json(data);
