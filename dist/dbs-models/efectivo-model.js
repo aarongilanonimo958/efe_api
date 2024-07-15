@@ -19,11 +19,23 @@ exports.SchemaEfectivo = connect_mysql_1.MysqlConnect.define('efectivo', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
+    totoal_impuesto: {
+        type: sequelize_1.DataTypes.DOUBLE,
+        allowNull: false
+    },
+    promedio: {
+        type: sequelize_1.DataTypes.DOUBLE,
+        allowNull: false
+    },
+    impuesto: {
+        type: sequelize_1.DataTypes.DOUBLE,
+        allowNull: false
+    },
     fecha: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
-    efectivo: {
+    subtotal: {
         type: sequelize_1.DataTypes.DOUBLE,
         allowNull: false
     }

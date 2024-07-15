@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateSalt = exports.SchemaIn = exports.SchemaUSer = void 0;
+exports.generateSalt = exports.SchemaIn = exports.SchemaUser = exports.SchemaDate = exports.SchemaUSer = void 0;
 const joi_1 = __importDefault(require("joi"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 exports.SchemaUSer = joi_1.default.object({
@@ -44,6 +44,16 @@ exports.SchemaUSer = joi_1.default.object({
         .pattern(RegExp('^[A-Za-z0-9-_+.]+$'))
         .required()
         .max(18)
+});
+exports.SchemaDate = joi_1.default.object({
+    date: joi_1.default.string()
+        .required()
+        .pattern(RegExp('^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$'))
+        .message('Ejemplo de fecha 01-01-2001')
+});
+exports.SchemaUser = joi_1.default.object({
+    username: joi_1.default.string()
+        .required()
 });
 exports.SchemaIn = joi_1.default.object({
     username: joi_1.default.string()

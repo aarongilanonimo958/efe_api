@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.inController = exports.createController = exports.get_cedeController = exports.get_dateController = exports.get_all = exports.sayhiController = void 0;
+exports.verifyUser = exports.inController = exports.createController = exports.get_dateController = exports.sayhiController = void 0;
 const efectivo_model_1 = require("./dbs-models/efectivo-model");
 const valid_helpers_1 = require("./valid-helpers");
 const user_model_1 = require("./dbs-models/user-model");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const crypto_js_1 = __importDefault(require("crypto-js"));
 const sayhiController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return res.status(200).json({
@@ -29,24 +30,9 @@ const sayhiController = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.sayhiController = sayhiController;
-const get_all = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const data = yield efectivo_model_1.SchemaEfectivo.findAll({
-            order: [
-                ['id_efectivo', 'DESC'],
-            ]
-        });
-        return res.status(200).json(data);
-    }
-    catch (error) {
-        return res.status(400).json(error);
-    }
-});
-exports.get_all = get_all;
 const get_dateController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { date } = req.body;
-        console.log(date);
         const data = yield efectivo_model_1.SchemaEfectivo.findAll({
             where: {
                 fecha: date
@@ -62,22 +48,6 @@ const get_dateController = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.get_dateController = get_dateController;
-const get_cedeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { date, cod } = req.body;
-        const data = yield efectivo_model_1.SchemaEfectivo.findAll({
-            where: {
-                fecha: date,
-                codcede: "0101",
-            }
-        });
-        return res.status(200).json(data);
-    }
-    catch (error) {
-        return res.status(400).json(error);
-    }
-});
-exports.get_cedeController = get_cedeController;
 const createController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, nombre, apellido, password } = req.body;
@@ -111,6 +81,7 @@ const createController = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.createController = createController;
 const inController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         const { username, password } = req.body;
         const is_user = yield user_model_1.userModel.findOne({
@@ -128,10 +99,34 @@ const inController = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 info: 'Algun dato es incorrecto',
                 data: username
             });
-        return res.json(is_user);
+        const iv = crypto_js_1.default.lib.WordArray.random(100);
+        const cryptData = yield crypto_js_1.default.AES.encrypt(is_user.getDataValue('username'), (_a = process.env.KEY_CRYPT) !== null && _a !== void 0 ? _a : '', { iv }).toString();
+        return res.json(cryptData);
     }
     catch (error) {
         return res.status(400).json(error);
     }
 });
 exports.inController = inController;
+const verifyUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    try {
+        const { username } = req.body;
+        const descrypt = crypto_js_1.default.AES.decrypt(username, (_b = process.env.KEY_CRYPT) !== null && _b !== void 0 ? _b : '').toString(crypto_js_1.default.enc.Utf8);
+        const is_exist = yield user_model_1.userModel.findOne({
+            where: {
+                username: descrypt
+            }
+        });
+        if (!is_exist)
+            throw ({
+                info: 'No existe el usuario',
+                data: username
+            });
+        return res.status(200).json(true);
+    }
+    catch (error) {
+        return res.status(400).json(error);
+    }
+});
+exports.verifyUser = verifyUser;

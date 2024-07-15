@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValidaIn = exports.ValidateUSer = void 0;
+exports.validateuser = exports.ValidaFecha = exports.ValidaIn = exports.ValidateUSer = void 0;
 const valid_helpers_1 = require("./valid-helpers");
 const ValidateUSer = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -23,7 +23,7 @@ const ValidateUSer = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
 exports.ValidateUSer = ValidateUSer;
 const ValidaIn = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const error = yield valid_helpers_1.SchemaUSer.schema(req.body);
+        const error = yield valid_helpers_1.SchemaIn.validateAsync(req.body);
         return next();
     }
     catch (error) {
@@ -31,3 +31,23 @@ const ValidaIn = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.ValidaIn = ValidaIn;
+const ValidaFecha = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const error = yield valid_helpers_1.SchemaDate.validateAsync(req.body);
+        return next();
+    }
+    catch (error) {
+        return res.status(400).json(error);
+    }
+});
+exports.ValidaFecha = ValidaFecha;
+const validateuser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const error = yield valid_helpers_1.SchemaUser.validateAsync(req.body);
+        return next();
+    }
+    catch (error) {
+        res.status(404).json(error);
+    }
+});
+exports.validateuser = validateuser;
