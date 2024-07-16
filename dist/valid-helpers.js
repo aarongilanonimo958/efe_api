@@ -67,7 +67,7 @@ exports.SchemaIn = joi_1.default.object({
         .trim()
         .normalize()
         .min(3)
-        .pattern(RegExp('^[A-Za-z0-9-_+.]+$'))
+        .pattern(RegExp('^[A-Za-z0-9-_+.\$]+$'))
         .required()
         .max(18)
 });
